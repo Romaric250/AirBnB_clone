@@ -14,7 +14,7 @@ class BaseModel:
         if kwargs is not None and kwargs !={}:  # Checking if keyword arguments were passed
             for key in kwargs:  # Iterating over the keys of kwargs
                 if key == "updated_at":  # Checking if the key is "updated_at"
-                    self.__dict__["updated-_at"] = datetime.strptime(kwargs["updated_at"], "%Y-%m-%dT%H:%M:%S.%f")
+                    self.__dict__["updated_at"] = datetime.strptime(kwargs["updated_at"], "%Y-%m-%dT%H:%M:%S.%f")
                     # Converting the value to a datetime object and assigning it to the "updated_at" attribute
                 elif key == "created_at":  # Checking if the key is "created_at"
                     self.__dict__["created_at"] = datetime.strptime(kwargs["created_at"], "%Y-%m-%dT%H:%M:%S.%f")
