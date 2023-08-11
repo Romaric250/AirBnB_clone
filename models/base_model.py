@@ -4,11 +4,17 @@
 """
 from datetime import datetime  # Importing the datetime module from the datetime package
 import uuid  # Importing the uuid module
+from models import storage
 
 class BaseModel:
     """This is the parent class, other children classes
         will inherit from it
     """
+    def save(self):
+        pass
+        storage.save()
+        #save all objects using the file storage instance
+
     def __init__(self, *args, **kwargs):
         """This built-in method initializes instance attributes"""
         if kwargs is not None and kwargs !={}:  # Checking if keyword arguments were passed
@@ -25,6 +31,7 @@ class BaseModel:
             self.id = str(uuid.uuid4())  # Generating a unique identifier and assigning it to the "id" attribute
             self.created_at = datetime.now()  # Assigning the current date and time to the "created_at" attribute
             self.updated_at = datetime.now()  # Assigning the current date and time to the "updated_at" attribute
+            storage.new(self)
 
     def __str__(self):
         """This method returns a string representation of the object"""
@@ -34,8 +41,8 @@ class BaseModel:
         """This method returns a dictionary representation of the object"""
         todict = self.__dict__.copy()  # Creating a copy of the instance's __dict__ attribute
         todict["__class__"] = type(self).__name__  # Adding a key-value pair for the class name
-        todict["update_at"] = todict["updated_at"].isformat()  # Adding a key-value pair for the "updated_at" attribute
-        todict["created_at"] = todict["created_at"].isformat()  # Adding a key-value pair for the "created_at" attribute
+        todict["update_at"] = todict["updated_at"].isoformat()  # Adding a key-value pair for the "updated_at" attribute
+        todict["created_at"] = todict["created_at"].isoformat()  # Adding a key-value pair for the "created_at" attribute
         return todict
     
 """ If you observe very well, you will notice that in the base model, i created only the public instance 
